@@ -11,10 +11,7 @@ namespace AdventOfCode2021
         {
             var list = new List<T>();
             using var reader = new StreamReader(location, Encoding.Default);
-            while (!reader.EndOfStream)
-            {
-                list.Add(func(reader.ReadLine()));
-            }
+            while (!reader.EndOfStream) list.Add(func(reader.ReadLine()));
             return list;
         }
     }
