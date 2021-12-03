@@ -9,13 +9,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Remove="Files\Day1.csv"/>
+        <None Remove="Files\Day1.csv" />
         <Content Include="Files\Day1.csv">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <None Remove="Files\Day1_small.csv"/>
+        <None Remove="Files\Day1_small.csv" />
         <Content Include="Files\Day1_ex.csv">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Files\Day2.csv" />
+        <Content Include="Files\Day2.csv">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Files\Day2_ex.csv" />
+        <Content Include="Files\Day2_ex.csv">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
 
