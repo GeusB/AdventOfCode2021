@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace AdventOfCode2021
 {
@@ -8,11 +9,15 @@ namespace AdventOfCode2021
     {
         public static void Execute()
         {
-            Part1("./Files/Day3_ex.csv");
-            Part1("./Files/Day3.csv");
+            var day = nameof(Day3);
+            var exampleLocation = $"./Files/{day}_ex.txt";
+            var fileLocation = $"./Files/{day}.txt";
+            
+            Part1(exampleLocation);
+            Part1(fileLocation);
 
-            Part2("./Files/Day3_ex.csv");
-            Part2("./Files/Day3.csv");
+            Part2(exampleLocation);
+            Part2(fileLocation);
         }
 
         private static void Part2(string fileLocation)
@@ -47,9 +52,9 @@ namespace AdventOfCode2021
                 : FilterByLeast(workingList, GetWinningBits(workingList, 0), position + 1);
         }
 
-        private static void Part1(string location)
+        private static void Part1(string fileLocation)
         {
-            var inputList = Tools.ReadListFromFile(MapRecord, location);
+            var inputList = Tools.ReadListFromFile(MapRecord, fileLocation);
             var lineLength = inputList.First().Length;
             var maxIntValue = Math.Pow(2, lineLength) - 1;
             var gammaBits = GetWinningBits(inputList);

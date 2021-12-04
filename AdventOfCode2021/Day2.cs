@@ -7,11 +7,15 @@ namespace AdventOfCode2021
     {
         public static void Execute()
         {
-            Part1("./Files/Day2_ex.csv");
-            Part1("./Files/Day2.csv");
+            var day = nameof(Day2);
+            var exampleLocation = $"./Files/{day}_ex.txt";
+            var fileLocation = $"./Files/{day}.txt";
+            
+            Part1(exampleLocation);
+            Part1(fileLocation);
 
-            Part2("./Files/Day2_ex.csv");
-            Part2("./Files/Day2.csv");
+            Part2(exampleLocation);
+            Part2(fileLocation);
         }
 
         private static void Part2(string fileLocation)

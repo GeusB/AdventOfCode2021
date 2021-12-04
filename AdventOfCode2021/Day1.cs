@@ -7,16 +7,20 @@ namespace AdventOfCode2021
     {
         public static void Execute()
         {
-            Part2("./Files/Day1_ex.csv");
-            Part2("./Files/Day1.csv");
+            var day = nameof(Day1);
+            var exampleLocation = $"./Files/{day}_ex.txt";
+            var fileLocation = $"./Files/{day}.txt";
+            
+            Part1(exampleLocation);
+            Part1(fileLocation);
 
-            Part1("./Files/Day1_ex.csv");
-            Part1("./Files/Day1.csv");
+            Part2(exampleLocation);
+            Part2(fileLocation);
         }
 
-        private static void Part2(string location)
+        private static void Part2(string fileLocation)
         {
-            var inputList = Tools.ReadListFromFile(ConvertToInt, location);
+            var inputList = Tools.ReadListFromFile(ConvertToInt, fileLocation);
             var windowList = new List<int>();
             var listLength = inputList.Count;
             for (var i = 0; i < listLength - 2; i++)
@@ -32,9 +36,9 @@ namespace AdventOfCode2021
         }
 
 
-        private static void Part1(string location)
+        private static void Part1(string fileLocation)
         {
-            var inputList = Tools.ReadListFromFile(ConvertToInt, location);
+            var inputList = Tools.ReadListFromFile(ConvertToInt, fileLocation);
             var count = GetIncreases(inputList);
             Console.WriteLine(count);
         }
