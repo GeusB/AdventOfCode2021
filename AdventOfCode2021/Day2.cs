@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode2021
@@ -8,9 +7,9 @@ namespace AdventOfCode2021
     {
         public static void Execute()
         {
-            Part2("./Files/Day2_ex.csv");
-            Part2("./Files/Day2.csv");
-            
+            Part1("./Files/Day2_ex.csv");
+            Part1("./Files/Day2.csv");
+
             Part2("./Files/Day2_ex.csv");
             Part2("./Files/Day2.csv");
         }
@@ -21,36 +20,37 @@ namespace AdventOfCode2021
             var aim = 0;
             var position = 0;
             var depth = 0;
-            foreach (var @record in inputList)
+            foreach (var record in inputList)
             {
                 position += record.Position;
                 depth += record.Position * aim;
                 aim += record.Delta;
             }
+
             var result = position * depth;
             Console.WriteLine(result);
         }
 
-        private static void Part1(string location)
+        private static void Part1(string fileLocation)
         {
-            var inputList = Tools.ReadListFromFile(MapRecord, location);
+            var inputList = Tools.ReadListFromFile(MapRecord, fileLocation);
             var position = inputList.Sum(x => x.Position);
             var depth = inputList.Sum(x => x.Delta);
             var result = position * depth;
             Console.WriteLine(result);
         }
 
-        private static Record MapRecord(string? line)
+        private static MovementRecord MapRecord(string? line)
         {
             var split = line.Split(" ").ToList();
-            var record = new Record(split.First(), int.Parse(split.Last()));
+            var record = new MovementRecord(split.First(), int.Parse(split.Last()));
             return record;
         }
     }
 
-    public class Record
+    public class MovementRecord
     {
-        public Record(string direction, int distance)
+        public MovementRecord(string direction, int distance)
         {
             switch (direction)
             {
