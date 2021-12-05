@@ -25,14 +25,36 @@ namespace AdventOfCode2021
 
         private static void Part2(string fileLocation)
         {
+            var result = GetData(fileLocation);
+            var numbers = result.numbers;
+            var cardDatas = result.cardList;
+            var cards = cardDatas.Select(x => new Card(x)).ToList();
             
+            foreach (var number in numbers)
+            {
+                var listToCheck = cards.Where(x=>x.CardScore == null).ToList();
+                foreach (var card in listToCheck)
+                {
+                    if (number != null)
+                    {
+                        var cardResult = CheckCard(card, number.Value);
+                        if (cardResult != null)
+                        {
+                            card.CardScore = cardResult * number;
+                            if (listToCheck.Count == 1)
+                                Console.WriteLine(card.CardScore);                   
+                        }
+                    }
+                }
+            }
         }
 
         private static (List<int?> numbers, List<List<int?[]>> cardList) GetData(string fileLocation)
         {
             using var reader = new StreamReader(fileLocation, Encoding.Default);
             var firstLine = reader.ReadLine();
-            var numbers = firstLine.Split(',').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y)).ToList();
+            var numbers = firstLine.Split(',').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y))
+                .ToList();
             var cardList = new List<List<int?[]>>();
             var card = new List<int?[]>();
             while (!reader.EndOfStream)
@@ -46,7 +68,8 @@ namespace AdventOfCode2021
                 }
                 else
                     card.Add(
-                        line.Split(' ').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y)).ToArray());
+                        line.Split(' ').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y))
+                            .ToArray());
             }
 
             cardList.Add(card);
@@ -123,10 +146,13 @@ namespace AdventOfCode2021
             CardData = card;
             Columns = new[] {0, 0, 0, 0, 0};
             Rows = new[] {0, 0, 0, 0, 0};
+            CardScore = null;
         }
-        
+
         public List<int?[]> CardData { get; set; }
         public int[] Columns { get; set; }
         public int[] Rows { get; set; }
+        
+        public int? CardScore { get; set; }
     }
 }
