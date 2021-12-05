@@ -35,16 +35,12 @@ namespace AdventOfCode2021
                 var listToCheck = cards.Where(x=>x.CardScore == null).ToList();
                 foreach (var card in listToCheck)
                 {
-                    if (number != null)
-                    {
-                        var cardResult = CheckCard(card, number.Value);
-                        if (cardResult != null)
-                        {
-                            card.CardScore = cardResult * number;
-                            if (listToCheck.Count == 1)
-                                Console.WriteLine(card.CardScore);                   
-                        }
-                    }
+                    if (number == null) continue;
+                    var cardResult = CheckCard(card, number.Value);
+                    if (cardResult == null) continue;
+                    card.CardScore = cardResult * number;
+                    if (listToCheck.Count == 1)
+                        Console.WriteLine(card.CardScore);
                 }
             }
         }
@@ -81,28 +77,23 @@ namespace AdventOfCode2021
         {
             var result = GetData(fileLocation);
             var numbers = result.numbers;
-            var cardDatas = result.cardList;
-            var cards = cardDatas.Select(x => new Card(x)).ToList();
+            var rawCardData = result.cardList;
+            var cards = rawCardData.Select(x => new Card(x)).ToList();
             int? winningResult = null;
             foreach (var number in numbers)
             {
                 foreach (var card in cards)
                 {
-                    if (number != null)
-                    {
-                        winningResult = CheckCard(card, number.Value);
-                        if (winningResult != null)
-                            break;
-                    }
+                    if (number == null) continue;
+                    winningResult = CheckCard(card, number.Value);
+                    if (winningResult != null)
+                        break;
                 }
-
-                if (winningResult != null)
-                {
-                    winningResult *= number;
-                    break;
-                }
+                
+                if (winningResult == null) continue;
+                winningResult *= number;
+                break;
             }
-
             Console.WriteLine(winningResult);
         }
 
@@ -119,7 +110,7 @@ namespace AdventOfCode2021
                     cardData[row][col] = null;
                     card.Columns[col]++;
                     card.Rows[row]++;
-                    if (HasWinningLine(card))
+                    if (Has5InARow(card))
                     {
                         return GetCardScore(card);
                     }
@@ -133,7 +124,7 @@ namespace AdventOfCode2021
             return card.CardData.Sum(x => x.Sum(y => y ?? 0));
         }
 
-        private static bool HasWinningLine(Card card)
+        private static bool Has5InARow(Card card)
         {
             return card.Columns.Any(x => x == 5) || card.Rows.Any(x => x == 5);
         }
@@ -149,10 +140,9 @@ namespace AdventOfCode2021
             CardScore = null;
         }
 
-        public List<int?[]> CardData { get; set; }
-        public int[] Columns { get; set; }
-        public int[] Rows { get; set; }
-        
+        public List<int?[]> CardData { get; }
+        public int[] Columns { get; }
+        public int[] Rows { get; }
         public int? CardScore { get; set; }
     }
 }
