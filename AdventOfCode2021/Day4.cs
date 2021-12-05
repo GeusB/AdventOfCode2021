@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace AdventOfCode2021
 {
@@ -24,16 +25,14 @@ namespace AdventOfCode2021
 
         private static void Part2(string fileLocation)
         {
-            var result = Data(fileLocation);
-            var firstLine = result.numbers;
-            var cards = result.cardList;
+            
         }
 
-        private static (List<int?> numbers, List<List<int?[]>> cardList) Data(string fileLocation)
+        private static (List<int?> numbers, List<List<int?[]>> cardList) GetData(string fileLocation)
         {
             using var reader = new StreamReader(fileLocation, Encoding.Default);
             var firstLine = reader.ReadLine();
-            var numbers = firstLine.Split(' ').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y)).ToList();
+            var numbers = firstLine.Split(',').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y)).ToList();
             var cardList = new List<List<int?[]>>();
             var card = new List<int?[]>();
             while (!reader.EndOfStream)
@@ -57,6 +56,77 @@ namespace AdventOfCode2021
 
         private static void Part1(string fileLocation)
         {
+            var result = GetData(fileLocation);
+            var numbers = result.numbers;
+            var cardDatas = result.cardList;
+            var cards = cardDatas.Select(x => new Card(x)).ToList();
+            int? winningResult = null;
+            foreach (var number in numbers)
+            {
+                foreach (var card in cards)
+                {
+                    if (number != null)
+                    {
+                        winningResult = CheckCard(card, number.Value);
+                        if (winningResult != null)
+                            break;
+                    }
+                }
+
+                if (winningResult != null)
+                {
+                    winningResult *= number;
+                    break;
+                }
+            }
+
+            Console.WriteLine(winningResult);
         }
+
+        private static int? CheckCard(Card card, int number)
+        {
+            var cardData = card.CardData;
+            for (var row = 0; row < cardData.Count; row++)
+            {
+                var rowData = cardData[row];
+                for (var col = 0; col < rowData.Length; col++)
+                {
+                    var toCheck = rowData[col];
+                    if (toCheck != number) continue;
+                    cardData[row][col] = null;
+                    card.Columns[col]++;
+                    card.Rows[row]++;
+                    if (HasWinningLine(card))
+                    {
+                        return GetCardScore(card);
+                    }
+                }
+            }
+            return null;
+        }
+
+        private static int GetCardScore(Card card)
+        {
+            return card.CardData.Sum(x => x.Sum(y => y ?? 0));
+        }
+
+        private static bool HasWinningLine(Card card)
+        {
+            return card.Columns.Any(x => x == 5) || card.Rows.Any(x => x == 5);
+        }
+    }
+
+    public class Card
+    {
+        public Card(List<int?[]> card)
+        {
+            CardData = card;
+            Columns = new[] {0, 0, 0, 0, 0};
+            Rows = new[] {0, 0, 0, 0, 0};
+        }
+        
+        public List<int?[]> CardData { get; set; }
+        public int[] Columns { get; set; }
+        public int[] Rows { get; set; }
     }
 }
