@@ -35,7 +35,7 @@ namespace AdventOfCode2021Tests
         {
             var location = $"./Files/Day5.txt";
         
-            Day5.Part2(location).Should().Be(5092);
+            Day5.Part2(location).Should().Be(20484);
         }
     }
 }
