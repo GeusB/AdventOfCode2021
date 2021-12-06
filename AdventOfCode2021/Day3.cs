@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace AdventOfCode2021
 {
@@ -12,7 +11,7 @@ namespace AdventOfCode2021
             var day = nameof(Day3);
             var exampleLocation = $"./Files/{day}_ex.txt";
             var fileLocation = $"./Files/{day}.txt";
-            
+
             Part1(exampleLocation);
             Part1(fileLocation);
 
@@ -30,7 +29,7 @@ namespace AdventOfCode2021
 
             var scrubberRatingBits = FilterByLeast(inputList, bits, 0);
             var scrubberRating = Convert.ToInt32(scrubberRatingBits, 2);
-            
+
             Console.WriteLine(oxygenRating * scrubberRating);
         }
 
@@ -41,7 +40,7 @@ namespace AdventOfCode2021
                 ? workingList.Single()
                 : FilterByMost(workingList, GetWinningBits(workingList, 1), position + 1);
         }
-        
+
         private static string FilterByLeast(List<string> inputList, string bits, int position)
         {
             if (inputList.Count == 2 && inputList.First()[position] != inputList.Last()[position])
@@ -72,20 +71,15 @@ namespace AdventOfCode2021
             var gammaBits = "";
 
             for (var i = 0; i < lineLength; i++)
-            {
                 if (draw != null)
                 {
                     var matchCount = inputList.Count(x => x[i] == '1');
                     if (matchCount == listCount - matchCount)
                     {
                         if (draw == 1)
-                        {
                             gammaBits += "1";
-                        }
                         else
-                        {
                             gammaBits += "0";
-                        }
                     }
                     else
                     {
@@ -96,7 +90,6 @@ namespace AdventOfCode2021
                 {
                     gammaBits += inputList.Count(x => x[i] == '1') > halfCount ? "1" : "0";
                 }
-            }
 
             return gammaBits;
         }

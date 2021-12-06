@@ -2,11 +2,11 @@
 
 namespace AdventOfCode2021
 {
-    public static class Day6
+    public static class Day7
     {
         public static void Execute()
         {
-            var fileLocation = "./Files/Day6.txt";
+            var fileLocation = "./Files/Day7.txt";
 
             Console.WriteLine(Part1(fileLocation));
             Console.WriteLine(Part2(fileLocation));

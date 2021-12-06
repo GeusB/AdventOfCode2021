@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 
 namespace AdventOfCode2021
 {
@@ -29,10 +27,10 @@ namespace AdventOfCode2021
             var numbers = result.numbers;
             var cardDatas = result.cardList;
             var cards = cardDatas.Select(x => new Card(x)).ToList();
-            
+
             foreach (var number in numbers)
             {
-                var listToCheck = cards.Where(x=>x.CardScore == null).ToList();
+                var listToCheck = cards.Where(x => x.CardScore == null).ToList();
                 foreach (var card in listToCheck)
                 {
                     if (number == null) continue;
@@ -63,9 +61,11 @@ namespace AdventOfCode2021
                     card = new List<int?[]>();
                 }
                 else
+                {
                     card.Add(
                         line.Split(' ').Where(x => !string.IsNullOrEmpty(x)).Select(y => (int?) int.Parse(y))
                             .ToArray());
+                }
             }
 
             cardList.Add(card);
@@ -89,11 +89,12 @@ namespace AdventOfCode2021
                     if (winningResult != null)
                         break;
                 }
-                
+
                 if (winningResult == null) continue;
                 winningResult *= number;
                 break;
             }
+
             Console.WriteLine(winningResult);
         }
 
@@ -110,12 +111,10 @@ namespace AdventOfCode2021
                     cardData[row][col] = null;
                     card.Columns[col]++;
                     card.Rows[row]++;
-                    if (Has5InARow(card))
-                    {
-                        return GetCardScore(card);
-                    }
+                    if (Has5InARow(card)) return GetCardScore(card);
                 }
             }
+
             return null;
         }
 

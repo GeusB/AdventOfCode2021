@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace AdventOfCode2021
 {
@@ -9,7 +7,7 @@ namespace AdventOfCode2021
     {
         public static void Execute()
         {
-            var fileLocation = $"./Files/Day5.txt";
+            var fileLocation = "./Files/Day5.txt";
 
             Console.WriteLine(Part1(fileLocation));
             Console.WriteLine(Part2(fileLocation));
@@ -23,12 +21,11 @@ namespace AdventOfCode2021
             var grid = new int[maxX + 1, maxY + 1];
             var count = 0;
             foreach (var ventRecord in inputList)
-            {
                 if (ventRecord.X1 == ventRecord.X2)
                 {
                     var from = Math.Min(ventRecord.Y1, ventRecord.Y2);
                     var till = Math.Max(ventRecord.Y1, ventRecord.Y2);
-                    for (var y = from; y <= till; y++)
+                    for (var y = @from; y <= till; y++)
                     {
                         if (grid[ventRecord.X1, y] == 1)
                             count++;
@@ -39,7 +36,7 @@ namespace AdventOfCode2021
                 {
                     var from = Math.Min(ventRecord.X1, ventRecord.X2);
                     var till = Math.Max(ventRecord.X1, ventRecord.X2);
-                    for (var x = from; x <= till; x++)
+                    for (var x = @from; x <= till; x++)
                     {
                         if (grid[x, ventRecord.Y1] == 1)
                             count++;
@@ -49,7 +46,6 @@ namespace AdventOfCode2021
                 else if (Math.Abs(ventRecord.XDelta) == Math.Abs(ventRecord.YDelta))
                 {
                     for (var c = 0; c < Math.Abs(ventRecord.XDelta) + 1; c++)
-                    {
                         if (ventRecord.Delta < 0)
                         {
                             if (grid[ventRecord.FromX + c, ventRecord.FromY - c] == 1)
@@ -62,9 +58,8 @@ namespace AdventOfCode2021
                                 count++;
                             grid[ventRecord.FromX + c, ventRecord.FromY + c]++;
                         }
-                    }
                 }
-            }
+
             return count;
         }
 
@@ -76,12 +71,11 @@ namespace AdventOfCode2021
             var grid = new int[maxX + 1, maxY + 1];
             var count = 0;
             foreach (var ventRecord in inputList)
-            {
                 if (ventRecord.X1 == ventRecord.X2)
                 {
                     var from = Math.Min(ventRecord.Y1, ventRecord.Y2);
                     var till = Math.Max(ventRecord.Y1, ventRecord.Y2);
-                    for (var y = from; y <= till; y++)
+                    for (var y = @from; y <= till; y++)
                     {
                         if (grid[ventRecord.X1, y] == 1)
                             count++;
@@ -92,14 +86,14 @@ namespace AdventOfCode2021
                 {
                     var from = Math.Min(ventRecord.X1, ventRecord.X2);
                     var till = Math.Max(ventRecord.X1, ventRecord.X2);
-                    for (var x = from; x <= till; x++)
+                    for (var x = @from; x <= till; x++)
                     {
                         if (grid[x, ventRecord.Y1] == 1)
                             count++;
                         grid[x, ventRecord.Y1]++;
                     }
                 }
-            }
+
             return count;
         }
 
@@ -115,10 +109,7 @@ namespace AdventOfCode2021
         {
             for (var i = 0; i < matrix.GetLength(0); i++)
             {
-                for (var j = 0; j < matrix.GetLength(1); j++)
-                {
-                    Console.Write(matrix[j, i] + "\t");
-                }
+                for (var j = 0; j < matrix.GetLength(1); j++) Console.Write(matrix[j, i] + "\t");
                 Console.WriteLine();
             }
         }

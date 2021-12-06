@@ -10,7 +10,7 @@ namespace AdventOfCode2021
             var day = nameof(Day1);
             var exampleLocation = $"./Files/{day}_ex.txt";
             var fileLocation = $"./Files/{day}.txt";
-            
+
             Part1(exampleLocation);
             Part1(fileLocation);
 
