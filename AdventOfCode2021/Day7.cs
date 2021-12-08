@@ -18,32 +18,26 @@ namespace AdventOfCode2021
         {
             var numbers = Tools.GetNumbers(fileLocation);
             var distanceDict = numbers.GroupBy(x => x).ToDictionary(x => x.Key, x => (long) x.Count());
-            var min = distanceDict.Keys.Min();
-            var max = distanceDict.Keys.Max();
-            var minimum = int.MaxValue;
-            for (var i = min; i <= max; i++)
-            {
-                var cost = distanceDict.Sum(distance => Math.Abs(i - distance.Key) * distance.Value);
-                minimum = (int) Math.Min(minimum, cost);
-            }
-
-            return minimum;
+            return GetMinimum(Math.Abs, distanceDict);
         }
 
         public static int Part2(string fileLocation)
         {
             var numbers = Tools.GetNumbers(fileLocation);
             var distanceDict = numbers.GroupBy(x => x).ToDictionary(x => x.Key, x => (long) x.Count());
+            return GetMinimum(GetCostForDistance, distanceDict);
+        }
+
+        private static int GetMinimum(Func<int, int> func,  Dictionary<int, long> distanceDict)
+        {
             var min = distanceDict.Keys.Min();
             var max = distanceDict.Keys.Max();
             var minimum = int.MaxValue;
             for (var i = min; i <= max; i++)
             {
-                var cost = distanceDict.Sum(distance =>
-                    GetCostForDistance(Math.Abs(i - distance.Key)) * distance.Value);
+                var cost = distanceDict.Sum(distance => func(Math.Abs(i - distance.Key)) * distance.Value);
                 minimum = (int) Math.Min(minimum, cost);
             }
-
             return minimum;
         }
 
