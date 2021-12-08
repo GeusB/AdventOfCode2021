@@ -4,7 +4,7 @@ using Xunit;
 
 namespace AdventOfCode2021Tests
 {
-    public class Day５Tests
+    public class Day5Tests
     {
         [Fact]
         public void Part1_Example()

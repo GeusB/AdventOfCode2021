@@ -11,7 +11,7 @@ namespace AdventOfCode2021Tests
         {
             var location = "./Files/Day7_ex.txt";
 
-            Day7.Part1(location).Should().Be(5934);
+            Day7.Part1(location).Should().Be(37);
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace AdventOfCode2021Tests
         {
             var location = "./Files/Day7.txt";
 
-            Day7.Part1(location).Should().Be(351188);
+            Day7.Part1(location).Should().Be(352331);
         }
 
         [Fact]

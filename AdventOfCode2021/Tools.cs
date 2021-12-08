@@ -16,7 +16,6 @@ namespace AdventOfCode2021
             return list;
         }
         
-        
         public static List<int> GetNumbers(string fileLocation)
         {
             using var reader = new StreamReader(fileLocation, Encoding.Default);
