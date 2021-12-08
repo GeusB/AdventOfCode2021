@@ -18,7 +18,7 @@ namespace AdventOfCode2021
 
         public static long Part2(string fileLocation, int days)
         {
-            var numbers = GetNumbers(fileLocation);
+            var numbers = Tools.GetNumbers(fileLocation);
             var fishLevelDict = numbers.GroupBy(x => x).ToDictionary(x => x.Key, x => (long) x.Count());
             AddMissingKeys(fishLevelDict);
 
@@ -44,17 +44,9 @@ namespace AdventOfCode2021
 
         public static long Part1(string fileLocation, int roundsLeft)
         {
-            var numbers = GetNumbers(fileLocation);
+            var numbers = Tools.GetNumbers(fileLocation);
             var result = Recalculate(numbers, roundsLeft);
             return result.Count;
-        }
-
-        private static List<int> GetNumbers(string fileLocation)
-        {
-            using var reader = new StreamReader(fileLocation, Encoding.Default);
-            var firstLine = reader.ReadLine();
-            var numbers = firstLine.Split(',').Where(x => !string.IsNullOrEmpty(x)).Select(y => int.Parse(y)).ToList();
-            return numbers;
         }
 
         private static List<int> Recalculate(List<int> numbers, int roundsLeft)
