@@ -59,7 +59,6 @@ namespace AdventOfCode2021
                             grid[ventRecord.FromX + c, ventRecord.FromY + c]++;
                         }
                 }
-
             return count;
         }
 
@@ -93,16 +92,12 @@ namespace AdventOfCode2021
                         grid[x, ventRecord.Y1]++;
                     }
                 }
-
             return count;
         }
 
-        private static VentRecord MapRecord(string? line)
+        private static VentRecord MapRecord(string line)
         {
-            var points = line.Split("->").ToList();
-            var values = points.SelectMany(x => x.Split(',')).Select(y => int.Parse(y)).ToArray();
-            var record = new VentRecord(values);
-            return record;
+            return new VentRecord(line);
         }
 
         private static void Print(int[,] matrix)
@@ -117,8 +112,10 @@ namespace AdventOfCode2021
 
     public class VentRecord
     {
-        public VentRecord(int[] values)
+        public VentRecord(string line)
         {
+            var points = line.Split("->").ToList();
+            var values = points.SelectMany(x => x.Split(',')).Select(y => int.Parse(y)).ToArray();
             X1 = values[0];
             Y1 = values[1];
             X2 = values[2];

@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2021
 {
-    public static class Day8９
+    public static class Day9
     {
         public static void Execute()
         {

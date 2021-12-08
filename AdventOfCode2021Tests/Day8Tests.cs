@@ -11,7 +11,7 @@ namespace AdventOfCode2021Tests
         {
             var location = "./Files/Day8_ex.txt";
 
-            Day7.Part1(location).Should().Be(37);
+            Day8.Part1(location).Should().Be(26);
         }
 
         [Fact]
@@ -19,7 +19,7 @@ namespace AdventOfCode2021Tests
         {
             var location = "./Files/Day8.txt";
 
-            Day7.Part1(location).Should().Be(352331);
+            Day8.Part1(location).Should().Be(352331);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace AdventOfCode2021Tests
         {
             var location = "./Files/Day8_ex.txt";
 
-            Day7.Part2(location).Should().Be(168);
+            Day8.Part2(location).Should().Be(168);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace AdventOfCode2021Tests
         {
             var location = "./Files/Day8.txt";
 
-            Day7.Part2(location).Should().Be(99266250);
+            Day8.Part2(location).Should().Be(99266250);
         }
     }
 }
