@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode2021
@@ -13,14 +14,6 @@ namespace AdventOfCode2021
             Console.WriteLine(Part2(fileLocation));
         }
 
-        public static int Part2(string fileLocation)
-        {
-            var numbers = Tools.GetNumbers(fileLocation);
-           
-            
-            return 0;
-        }
-
         public static int Part1(string fileLocation)
         {
             var numbers = Tools.GetNumbers(fileLocation);
@@ -30,15 +23,38 @@ namespace AdventOfCode2021
             var minimum = int.MaxValue;
             for (var i = min; i <= max; i++)
             {
-                long cost = 0;
-                foreach (var distance in distanceDict)
-                {
-                    cost += Math.Abs(i - distance.Key) * distance.Value;
-                }
-
+                var cost = distanceDict.Sum(distance => Math.Abs(i - distance.Key) * distance.Value);
                 minimum = (int) Math.Min(minimum, cost);
             }
+
             return minimum;
+        }
+
+        public static int Part2(string fileLocation)
+        {
+            var numbers = Tools.GetNumbers(fileLocation);
+            var distanceDict = numbers.GroupBy(x => x).ToDictionary(x => x.Key, x => (long) x.Count());
+            var min = distanceDict.Keys.Min();
+            var max = distanceDict.Keys.Max();
+            var minimum = int.MaxValue;
+            for (var i = min; i <= max; i++)
+            {
+                var cost = distanceDict.Sum(distance =>
+                    GetCostForDistance(Math.Abs(i - distance.Key)) * distance.Value);
+                minimum = (int) Math.Min(minimum, cost);
+            }
+
+            return minimum;
+        }
+
+        private static int GetCostForDistance(int distance)
+        {
+            var cost = 0;
+            for (var i = 1; i <= distance; i++)
+            {
+                cost += i;
+            }
+            return cost;
         }
     }
 }
