@@ -28,7 +28,7 @@ namespace AdventOfCode2021
             return GetMinimum(GetCostForDistance, distanceDict);
         }
 
-        private static int GetMinimum(Func<int, int> func,  Dictionary<int, long> distanceDict)
+        private static int GetMinimum(Func<int, int> func, Dictionary<int, long> distanceDict)
         {
             var min = distanceDict.Keys.Min();
             var max = distanceDict.Keys.Max();
@@ -38,16 +38,14 @@ namespace AdventOfCode2021
                 var cost = distanceDict.Sum(distance => func(Math.Abs(i - distance.Key)) * distance.Value);
                 minimum = (int) Math.Min(minimum, cost);
             }
+
             return minimum;
         }
 
         private static int GetCostForDistance(int distance)
         {
             var cost = 0;
-            for (var i = 1; i <= distance; i++)
-            {
-                cost += i;
-            }
+            for (var i = 1; i <= distance; i++) cost += i;
             return cost;
         }
     }

@@ -25,7 +25,7 @@ namespace AdventOfCode2021
                 {
                     var from = Math.Min(ventRecord.Y1, ventRecord.Y2);
                     var till = Math.Max(ventRecord.Y1, ventRecord.Y2);
-                    for (var y = @from; y <= till; y++)
+                    for (var y = from; y <= till; y++)
                     {
                         if (grid[ventRecord.X1, y] == 1)
                             count++;
@@ -36,7 +36,7 @@ namespace AdventOfCode2021
                 {
                     var from = Math.Min(ventRecord.X1, ventRecord.X2);
                     var till = Math.Max(ventRecord.X1, ventRecord.X2);
-                    for (var x = @from; x <= till; x++)
+                    for (var x = from; x <= till; x++)
                     {
                         if (grid[x, ventRecord.Y1] == 1)
                             count++;
@@ -59,6 +59,7 @@ namespace AdventOfCode2021
                             grid[ventRecord.FromX + c, ventRecord.FromY + c]++;
                         }
                 }
+
             return count;
         }
 
@@ -74,7 +75,7 @@ namespace AdventOfCode2021
                 {
                     var from = Math.Min(ventRecord.Y1, ventRecord.Y2);
                     var till = Math.Max(ventRecord.Y1, ventRecord.Y2);
-                    for (var y = @from; y <= till; y++)
+                    for (var y = from; y <= till; y++)
                     {
                         if (grid[ventRecord.X1, y] == 1)
                             count++;
@@ -85,13 +86,14 @@ namespace AdventOfCode2021
                 {
                     var from = Math.Min(ventRecord.X1, ventRecord.X2);
                     var till = Math.Max(ventRecord.X1, ventRecord.X2);
-                    for (var x = @from; x <= till; x++)
+                    for (var x = from; x <= till; x++)
                     {
                         if (grid[x, ventRecord.Y1] == 1)
                             count++;
                         grid[x, ventRecord.Y1]++;
                     }
                 }
+
             return count;
         }
 

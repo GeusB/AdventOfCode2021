@@ -23,13 +23,11 @@ namespace AdventOfCode2021
             for (var i = 0; i < days; i++)
             {
                 var fishReproducing = fishLevelDict[0];
-                for (var j = 0; j < 8; j++)
-                {
-                    fishLevelDict[j] = fishLevelDict[j + 1];
-                }
+                for (var j = 0; j < 8; j++) fishLevelDict[j] = fishLevelDict[j + 1];
                 fishLevelDict[6] += fishReproducing;
                 fishLevelDict[8] = fishReproducing;
             }
+
             return fishLevelDict.Sum(x => x.Value);
         }
 
@@ -55,15 +53,15 @@ namespace AdventOfCode2021
             var toAdd = new List<int>();
             var newList = new List<int>();
             foreach (var number in numbers)
-            {
                 if (number == 0)
                 {
                     newList.Add(6);
                     toAdd.Add(8);
                 }
                 else
+                {
                     newList.Add(number - 1);
-            }
+                }
 
             if (toAdd.Any())
                 newList.AddRange(toAdd);
