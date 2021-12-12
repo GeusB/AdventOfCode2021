@@ -21,13 +21,13 @@
         <None Include="Files\Day4_ex.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Remove="Files\Day1.csv"/>
-        <None Remove="Files\Day1_small.csv"/>
+        <None Remove="Files\Day1.csv" />
+        <None Remove="Files\Day1_small.csv" />
         <None Include="Files\Day1_ex.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Remove="Files\Day2.csv"/>
-        <None Remove="Files\Day2_ex.csv"/>
+        <None Remove="Files\Day2.csv" />
+        <None Remove="Files\Day2_ex.csv" />
         <None Update="Files\Day5.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -57,6 +57,12 @@
         </None>
         <None Update="Files\Day9_ex.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Files\Day10.txt">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Files\Day10_ex.txt">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
