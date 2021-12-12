@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace AdventOfCode2021
 {
@@ -16,13 +17,57 @@ namespace AdventOfCode2021
 
         public static int Part2(string fileLocation)
         {
-            return 0;
+            var inputList = Tools.ReadListFromFile(MapRecord, fileLocation);
+            var lowPointList = GetLowPointList(inputList);
+
+            foreach (var lowPoint in lowPointList)
+            {
+                lowPoint.BasinSize = CalculateBasinSize(lowPoint, inputList);
+            }
+
+            var biggestThreeBasins = lowPointList.Select(x => x.BasinSize).OrderByDescending(x => x).Take(3);
+            return biggestThreeBasins.Aggregate(1, (current, basinSize) => current * basinSize);
         }
 
         public static int Part1(string fileLocation)
         {
             var inputList = Tools.ReadListFromFile(MapRecord, fileLocation);
-            var lowPointList = new List<int>();
+            var lowPointList = GetLowPointList(inputList);
+
+            return lowPointList.Select(x => x.Depth + 1).Sum();
+        }
+
+        private static int CalculateBasinSize(LowPoint lowPoint, List<int[]> inputList)
+        {
+            var rowBasinSizeCount = 1;
+            var rowArray = inputList[lowPoint.Row];
+            for (var i = lowPoint.Col; i >= 0; i--)
+            {
+                if (i - 1 >= 0 && rowArray[i] < rowArray[i - 1] && rowArray[i - 1] < 9)
+                {
+                    rowBasinSizeCount++;
+                }
+                else
+                    break;
+            }
+
+            var colCount = rowArray.Length;
+            for (var i = lowPoint.Col; i <= colCount; i++)
+            {
+                if (i + 1 < colCount && rowArray[i] < rowArray[i + 1] && rowArray[i + 1] < 9)
+                {
+                    rowBasinSizeCount++;
+                }
+                else
+                    break;
+            }
+
+            return rowBasinSizeCount;
+        }
+
+        private static List<LowPoint> GetLowPointList(List<int[]> inputList)
+        {
+            var lowPointList = new List<LowPoint>();
             for (var row = 0; row < inputList.Count; row++)
             {
                 var rowArray = inputList[row];
@@ -49,12 +94,12 @@ namespace AdventOfCode2021
 
                     if (IsVerticalLowPoint(row, col, inputList))
                     {
-                        lowPointList.Add(rowArray[col]);
+                        lowPointList.Add(new LowPoint(rowArray[col], row, col));
                     }
                 }
             }
 
-            return lowPointList.Select(x => x + 1).Sum();
+            return lowPointList;
         }
 
         private static bool IsVerticalLowPoint(int row, int col, List<int[]> inputList)
@@ -86,5 +131,22 @@ namespace AdventOfCode2021
         {
             return line.Trim().ToCharArray().Select(x => int.Parse(x.ToString())).ToArray();
         }
+    }
+
+    public class LowPoint
+    {
+        public LowPoint(int depth, int row, int col)
+        {
+            Depth = depth;
+            Col = col;
+            Row = row;
+            BasinSize = 0;
+        }
+
+        public int Depth { get; }
+        public int Col { get; }
+        public int Row { get; }
+
+        public int BasinSize { get; set; }
     }
 }
